@@ -4,6 +4,10 @@ const bodyParser = require("body-parser");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req,res, next) => {
+	console.log(req.method, req.url)
+	next()
+})
 
 app.get("/", (req, res) => {
 	res.sendFile("views/index.html", {root: __dirname});
@@ -39,10 +43,10 @@ app.get("/api/categories/:id", (req, res) => {
 })
 
 app.post("/api/categories/:id", (req, res) => {
-	const id = Number(req.params.id);
+	const categoryId = Number(req.params.id);
 	const categoryData = req.body;
-	updateCategory(id, categoryData);
-	res.redirect("/categories/" + id);
+	updateCategory(categoryId, categoryData);
+	res.redirect("/categories/" + categoryId);
 })
 
 app.post("/api/categories", (req, res) => {
@@ -124,6 +128,38 @@ app.get("/tasks/:id/edit", (req, res) => {
 
 //api tasks
 
+//create post
+app.post("/api/tasks", (req, res) => {
+	const taskData = req.body;
+	const newTask = createTask(taskData);
+	res.redirect("/tasks/" + newTask.id);
+})
+//read get
+app.get("/api/tasks/:id", (req, res) => {
+	const taskId = Number(req.params.id);
+	const task = getTask(taskId);
+	res.send(task);
+})
+
+app.get("/api/tasks", (req, res) => {
+	const tasks = getTasks();
+	res.send(tasks); 
+})
+
+//update put/post
+app.post("/api/tasks/:id", (req, res) => {
+	const taskId = Number(req.params.id);
+	const taskData = req.body;
+	updateTask(taskId, taskData);
+	res.redirect("/tasks/" + taskId)
+})
+
+//delete delete
+app.delete("/api/tasks/:id", (req, res) => {
+	const taskId = Number(req.params.id);
+	deleteTask(taskId);
+	res.sendStatus(204);
+})
 
 //tasks database
 let taskId = 1;
