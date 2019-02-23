@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GYST! | Category</title>
+	<script type="text/javascript" src="/js/api-categories.js"></script>
+	<style type="text/css">
+		#category-color-display {
+			height: 2rem;
+			width: 2rem;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<!-- title of the particular category, color of category, any tasks that are currently in the category, edit button, delete button -->
+		<h1 id="category-title"></h1>
+		<div class="color">
+			<div id="category-color-display"></div>
+			<span id="category-color"></span>
+		</div>
+		<button class="edit-button">Edit</button>
+		<button class="delete-button">Delete</button>
+	</main>
+</body>
+	<script type="text/javascript">
+		//access api, get a particular category, list it, convert to html
+		function populateDetail(category){
+			const h1 = document.querySelector("#category-title");
+			h1.innerHTML = category.title;
+			const categoryColor = document.querySelector("#category-color-display")
+			categoryColor.style.backgroundColor = category.color;
+			const colorName = document.querySelector("#category-color")
+			colorName.innerHTML = category.color;
+		}
+
+		async function render(){
+			const id = getCategoryIdFromUrl();
+			const category = await getCategory(id);
+			populateDetail(category);
+		}
+		render();
+
+		document.querySelector(".edit-button").addEventListener("click", () => {
+			window.location.pathname += "/edit"
+		})
+
+		document.querySelector(".delete-button").addEventListener("click", async () => {
+			const id = getCategoryIdFromUrl();
+			await fetch("/api/categories/" + id, {method: "DELETE"});
+			window.location.pathname = "/categories"
+		})
+
+	</script>
+</html>

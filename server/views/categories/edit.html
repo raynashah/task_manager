@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GYST! | Edit Category</title>
+	<script type="text/javascript" src="/js/api-categories.js"></script>
+</head>
+<body>
+	<h1>Edit Category</h1>
+	<form method="post">
+		<div class='input-container'>
+			<label for='title'>Title</label>
+			<input type="text" name="title" id='title'>
+		</div>
+		<div class='input-container'>
+			<label for='color'>Color</label>
+			<input type="color" name="color" id='color' value='#68c19f'>
+		</div>
+		<button class='submit'>Update Category</button> 
+	</form>
+</body>
+	<script type="text/javascript">
+		//populate edit form
+		function populateEditForm(category){
+			const titleInput = document.querySelector("#title")
+			titleInput.value = category.title;
+			const colorInput = document.querySelector("#color")
+			colorInput.value = category.color;
+			const form = document.querySelector("form")
+			form.action = "/api/categories/" + category.id;
+		}
+
+		//update category
+
+		async function render(){
+			const id = getCategoryIdFromUrl();
+			const category = await getCategory(id);
+			populateEditForm(category);
+		}
+		render();
+	</script>
+</html>

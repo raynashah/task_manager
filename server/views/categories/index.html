@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GYST! | Categories</title>
+	<script type="text/javascript" src="/js/api-categories.js"></script>
+</head>
+<body>
+	<main>
+		<h1>Categories</h1>
+		<div>
+			<a href="/categories/new">New Category</a>
+		</div>
+		<div id='categories-container'>
+			<ul></ul>
+		</div>
+	</main>
+</body>
+<script type="text/javascript">
+	//access api, get categories, lists them, convert to html
+
+	function createCategoryElements(categories){
+		const ulCategories = document.querySelector("#categories-container ul");
+		for(let i = 0; i < categories.length; i++){
+			const category = categories[i];
+			const li = document.createElement("li");
+			const link = document.createElement("a");
+			link.href = "/categories/" + category.id;
+			const textNode = document.createTextNode(category.title);
+			link.appendChild(textNode);
+			li.appendChild(link);
+			ulCategories.appendChild(li);
+		}
+	}
+
+	async function render(){
+		const categories = await getCategories();
+		createCategoryElements(categories);
+	}
+	render();
+</script>
+</html>

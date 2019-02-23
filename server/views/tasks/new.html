@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GYST! | New Task</title>
+</head>
+<body>
+	<main>
+		<h1>New Task</h1>
+		<form>
+			<div class='input-container'>
+				<label for= 'title'>Title</label>
+				<input type="text" name="title" id='title' placeholder='Enter title...'>
+			</div>
+			<div class='input-container'>
+				<label for='priority'>Priority Level</label>
+				<div class='radio-container'>
+					<label for="none">none</label>
+					<input type="radio" name="priority" id="none" value="none" checked>
+					<label for="one">!</label>
+					<input type="radio" name="priority" id="one" value="one">
+					<label for="two">!!</label>
+					<input type="radio" name="priority" id="two" value="two">
+					<label for="three">!!!</label>
+					<input type="radio" name="priority" id="three" value="three">
+				</div>
+				<div class='input-container'>
+					<label for='category'>Category</label>
+					<select name='category'>
+						<option value='home'>Home</option>
+						<option value='work'>Work</option>
+						<option value='exercise'>Exercise</option>
+						<option value='misc'>Misc.</option>
+					</select>
+				</div>
+				<div class='input-container'>
+					<label for='dueAt'>Due</label>
+					<input type="datetime-local" name="dueAt">
+				</div>
+				<div class='input-container'>
+					<label for='reminderAt'>Remind Me</label>
+					<input type="datetime-local" name="reminderAt">
+				</div>
+				<div class='input-container'>
+					<textarea rows="4" cols="50" id='entrants-box' placeholder='Notes to self...'></textarea>
+				</div>
+			</div>
+			<button class='submit'>Create Task</button> 
+		</form>
+	</main>
+</body>
+</html>
