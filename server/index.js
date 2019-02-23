@@ -26,27 +26,7 @@ app.get("/categories/:id/edit", (req, res) => {
 	res.sendFile("views/categories/edit.html", {root: __dirname})
 })
 
-//tasks
-app.get("/tasks", (req, res) => {
-	res.sendFile("views/tasks/index.html", {root: __dirname})
-})
-
-app.get("/tasks/new", (req, res) => {
-	res.sendFile("views/tasks/new.html", {root: __dirname})
-})
-
-app.get("/tasks/:id", (req, res) => {
-	res.sendFile("views/tasks/detail.html", {root: __dirname})
-})
-
 //api categories
-let categoryId = 1;
-let categories = [
-	{title: "Home", color: "red", id: categoryId++}, 
-	{title: "Work", color: "green", id: categoryId++}, 
-	{title: "Exercise", color: "blue", id: categoryId++}
-]; 
-
 app.get("/api/categories", (req, res) => {
 	const categories = getCategories();
 	res.send(categories)
@@ -77,40 +57,121 @@ app.delete("/api/categories/:id", (req, res) => {
 	res.sendStatus(204);
 })
 
+//categories database
+let categoryId = 1;
+let categories = [
+	{title: "Home", color: "red", id: categoryId++}, 
+	{title: "Work", color: "green", id: categoryId++}, 
+	{title: "Exercise", color: "blue", id: categoryId++}
+]; 
+
+//get categories
 function getCategories(){
 	return categories;
 }
 
-function getCategory(id){
-	return categories.find(e => e.id === id)
+//get a category
+function getCategory(categoryId){
+	const category = categories.find(e => e.id === categoryId);
+	return category;
 }
 
-function createCategory(newCategory){
-	newCategory.id = categoryId++;
-	categories.push(newCategory);
-	return newCategory;
+//create a category
+function createCategory(categoryData){
+	categoryData.id = categoryId++;
+	categories.push(categoryData);
+	return categoryData;
 }
 
-function updateCategory(id, categoryData){
-	let index;
-	for(index = 0; index < categories.length; index++){
-		if(categories[index].id === id){
+//edit category
+function updateCategory(categoryId, categoryData){
+	let i;
+	for(i = 0; i < categories.length; i++){
+		if(categories[i].id === categoryId){
 			break
 		}
 	}
-	categories[index] = {
-		...categories[index],
+	const updatedCategory =  {
+		...categories[i],
 		...categoryData,
-		id: id
-	}	
-	return categories[index];
+		id: categoryId
+	}
+	categories[i] = updatedCategory;
+	return updatedCategory;
 }
 
-function deleteCategory(id){
-	return categories = categories.filter(e => e.id !== id)
+//delete category
+function deleteCategory(categoryId){
+	categories = categories.filter(e => e.id !== categoryId)
 }
+
+//tasks
+app.get("/tasks", (req, res) => {
+	res.sendFile("views/tasks/index.html", {root: __dirname})
+})
+
+app.get("/tasks/new", (req, res) => {
+	res.sendFile("views/tasks/new.html", {root: __dirname})
+})
+
+app.get("/tasks/:id", (req, res) => {
+	res.sendFile("views/tasks/detail.html", {root: __dirname})
+})
+
+app.get("/tasks/:id/edit", (req, res) => {
+	res.sendFile("views/tasks/edit.html", {root: __dirname})
+})
 
 //api tasks
 
+
+//tasks database
+let taskId = 1;
+let tasks = [
+	{title: "nice", priority: "one", categoryId: 1, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: true},
+	{title: "wow", priority: "two", categoryId: 2, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false},
+	{title: "yay", priority: "three", categoryId: 3, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false}
+]
+
+//get a task
+function getTask(taskId){
+	const task = tasks.find(e => e.id === taskId);
+	return task;
+}
+
+//get all tasks
+function getTasks(){
+	return tasks;
+}
+
+//create task
+function createTask(taskData){
+	taskData.id = taskId++;
+	taskData.isComplete = false;
+	tasks.push(taskData);
+	return taskData;
+}
+
+//edit task
+function updateTask(taskId, taskData){
+	let i;
+	for(i = 0; i < tasks.length; i++){
+		if(tasks[i].id === taskId){
+			break
+		}
+	}
+	const updatedTask = {
+		...tasks[i], 
+		...taskData,
+		id: taskId
+	}
+	tasks[i] = updatedTask;
+	return updatedTask;
+}
+
+//delete task
+function deleteTask(taskId){
+	tasks = tasks.filter(e => e.id !== taskId)
+}
 
 app.listen(8000, () => console.log("server is listening on port 8000"));

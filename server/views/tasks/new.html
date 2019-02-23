@@ -24,12 +24,11 @@
 					<input type="radio" name="priority" id="three" value="three">
 				</div>
 				<div class='input-container'>
-					<label for='category'>Category</label>
-					<select name='category'>
-						<option value='home'>Home</option>
-						<option value='work'>Work</option>
-						<option value='exercise'>Exercise</option>
-						<option value='misc'>Misc.</option>
+					<label for='categoryId'>Category</label>
+					<select name='categoryId'>
+						<option value='1'>Home</option>
+						<option value='2'>Work</option>
+						<option value='3'>Exercise</option>
 					</select>
 				</div>
 				<div class='input-container'>
@@ -41,7 +40,7 @@
 					<input type="datetime-local" name="reminderAt">
 				</div>
 				<div class='input-container'>
-					<textarea rows="4" cols="50" id='entrants-box' placeholder='Notes to self...'></textarea>
+					<textarea rows="4" cols="50" name='notes' placeholder='Notes to self...'></textarea>
 				</div>
 			</div>
 			<button class='submit'>Create Task</button> 
