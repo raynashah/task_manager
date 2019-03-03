@@ -15,4 +15,26 @@
 		</div>
 	</main>
 </body>
+<script type="text/javascript">
+	async function render(){
+		const tasksData = await getTasks();
+		createTaskElements(tasksData);
+	}
+	
+	function createTaskElements(tasksData){
+		const tasksList = document.querySelector("#tasks-container ul");
+		for(let i = 0; i < tasksData.length; i++){
+			const taskData = tasksData[i];
+			const li = document.createElement("li");
+			const link = document.createElement("a");
+			link.href = "/tasks/" + taskData.id;
+			const linkText = document.createTextNode(taskData.title);
+			link.appendChild(linkText);
+			li.appendChild(link);
+			tasksList.appendChild(li);
+		}
+	}
+
+	render();
+</script>
 </html>

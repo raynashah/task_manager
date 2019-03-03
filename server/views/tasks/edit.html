@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GYST! | Edit Task</title>
+	<script type="text/javascript" src="/js/api-tasks.js"></script>
+	<script type="text/javascript" src="/js/api-categories.js"></script>
+</head>
+<body>
+	<main>
+		<h1>Edit Task</h1>
+		<!-- title, category, priority, due date, reminder date, is complete, notes -->
+		<form action="/api/tasks" method="post">
+			<div class='input-container'>
+				<label for= 'title'>Title</label>
+				<input type="text" name="title" id='title' placeholder='Enter title...'>
+			</div>
+			<div class='input-container'>
+				<label for='is-complete'>Complete</label>
+				<input type="checkbox" name="isComplete" id="is-complete">
+			</div>
+			<div class='input-container'>
+				<label for='priority'>Priority Level</label>
+				<div class='radio-container' id="priority">
+					<label for="none">none</label>
+					<input type="radio" name="priority" id="none" value="none">
+					<label for="one">!</label>
+					<input type="radio" name="priority" id="one" value="one">
+					<label for="two">!!</label>
+					<input type="radio" name="priority" id="two" value="two">
+					<label for="three">!!!</label>
+					<input type="radio" name="priority" id="three" value="three">
+				</div>
+				<div class='input-container'>
+					<label for='categoryId'>Category</label>
+					<select id='category' name='categoryId'></select>
+				</div>
+				<div class='input-container'>
+					<label for='due-at'>Due</label>
+					<input type="datetime-local" name="dueAt" id="due-at">
+				</div>
+				<div class='input-container'>
+					<label for='reminder-at'>Remind Me</label>
+					<input type="datetime-local" name="reminderAt" id="reminder-at">
+				</div>
+				<div class='input-container'>
+					<textarea rows="4" cols="50" name='notes' placeholder='Notes to self...'></textarea>
+				</div>
+			</div>
+			<button class='submit'>Edit Task</button> 
+		</form>
+	</main>
+</body>
+	<script type="text/javascript">
+		async function renderCategories(){
+			const categories = await getCategories();
+			createHTMLCategories(categories);
+		}
+
+		function createHTMLCategories(categories){
+		const categorySelect = document.querySelector("#category")
+		for(let i = 0; i < categories.length; i++){
+			const category = categories[i];
+			const option = document.createElement("option");
+			option.value = category.id;
+			const text = document.createTextNode(category.title);
+			option.appendChild(text);
+			categorySelect.appendChild(option); 
+			}
+		}
+
+		//populate form with task
+		function populateEditForm(task){
+			const titleInput = document.querySelector("#title")
+			titleInput.value = task.title;
+
+			const isComplete = document.querySelector("#is-complete")
+			isComplete.checked = task.isComplete;
+
+			const priorityInputs = document.querySelectorAll("#priority input")
+			const selectedPriority = Array.from(priorityInputs).find(e => e.value === task.priority);
+			selectedPriority.checked = true;
+
+			const categoryOptions = document.querySelectorAll("#category option")
+			const selectedCategory = Array.from(categoryOptions).find(e => Number(e.value) === Number(task.categoryId));
+			selectedCategory.selected = true;
+
+			const dueAtInput = document.querySelector("#due-at")
+			dueAtInput.value = task.dueAt.slice(0,16);
+
+			const reminderAtInput = document.querySelector("#reminder-at")
+			reminderAtInput.value = task.reminderAt.slice(0,16);
+
+			const form = document.querySelector("form")
+			form.action = "/api/tasks/" + task.id;
+			console.log(task)
+		}
+
+		//update task
+		async function renderTask(){
+			const id = getTaskIdFromUrl();
+			const task = await getTask(id);
+			populateEditForm(task);
+		}
+
+		async function render(){
+			await renderCategories()
+			renderTask()
+		}
+		render();
+
+	</script>
+</html>

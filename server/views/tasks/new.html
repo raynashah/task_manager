@@ -2,11 +2,12 @@
 <html>
 <head>
 	<title>GYST! | New Task</title>
+	<script type="text/javascript" src="/js/api-categories.js"></script>
 </head>
 <body>
 	<main>
 		<h1>New Task</h1>
-		<form>
+		<form action="/api/tasks" method="post">
 			<div class='input-container'>
 				<label for= 'title'>Title</label>
 				<input type="text" name="title" id='title' placeholder='Enter title...'>
@@ -25,11 +26,7 @@
 				</div>
 				<div class='input-container'>
 					<label for='categoryId'>Category</label>
-					<select name='categoryId'>
-						<option value='1'>Home</option>
-						<option value='2'>Work</option>
-						<option value='3'>Exercise</option>
-					</select>
+					<select id='category' name='categoryId'></select>
 				</div>
 				<div class='input-container'>
 					<label for='dueAt'>Due</label>
@@ -47,4 +44,24 @@
 		</form>
 	</main>
 </body>
+<script type="text/javascript">
+	async function render(){
+		const categories = await getCategories();
+		createHTMLCategories(categories); 
+	}
+
+	function createHTMLCategories(categories){
+		const categorySelect = document.querySelector("#category")
+		for(let i = 0; i < categories.length; i++){
+			const category = categories[i];
+			const option = document.createElement("option");
+			option.value = category.id;
+			const text = document.createTextNode(category.title);
+			option.appendChild(text);
+			categorySelect.appendChild(option); 
+		}
+	}
+
+	render();
+</script>
 </html>

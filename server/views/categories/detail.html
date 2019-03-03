@@ -25,12 +25,16 @@
 	<script type="text/javascript">
 		//access api, get a particular category, list it, convert to html
 		function populateDetail(category){
-			const h1 = document.querySelector("#category-title");
-			h1.innerHTML = category.title;
+			createText("#category-title", category.title);
+			createText("#category-color", category.color);
 			const categoryColor = document.querySelector("#category-color-display")
 			categoryColor.style.backgroundColor = category.color;
-			const colorName = document.querySelector("#category-color")
-			colorName.innerHTML = category.color;
+		}
+
+		function createText(elementId, value){
+			const element = document.querySelector(elementId);
+			const text = document.createTextNode(value);
+			element.appendChild(text);
 		}
 
 		async function render(){
