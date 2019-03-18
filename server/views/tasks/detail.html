@@ -41,9 +41,9 @@
 		function populateDetail(task){
 			createText("#task-title", task.title);
 			createText("#priority", task.priority);
-			createText("#category", task.categoryId);
-			createText("#due-at", task.dueAt);
-			createText("#reminder-at", task.reminderAt);
+			createText("#category", task.category.title);
+			createText("#due-at", formatDate(task.dueAt));
+			createText("#reminder-at", formatDate(task.reminderAt));
 			createText("#notes", task.notes);
 			createText("#complete", task.isComplete ? "Yes" : "No");
 
@@ -53,6 +53,17 @@
 			const element = document.querySelector(elementId);
 			const text = document.createTextNode(value);
 			element.appendChild(text);
+		}
+
+		function formatDate(date){
+			return new Date(date).toLocaleDateString("en-US", {
+				weekday: "long",
+				month: "long",
+				day: "numeric",
+				year: "numeric",
+				hour: "numeric",
+				minute: "2-digit",
+			})
 		}
 
 		async function render(){

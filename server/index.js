@@ -172,12 +172,16 @@ let tasks = [
 //get a task
 function getTask(taskId){
 	const task = tasks.find(e => e.id === taskId);
+	task.category = getCategory(task.categoryId);
 	return task;
 }
 
 //get all tasks
 function getTasks(){
-	return tasks;
+	return tasks.map(e => (
+		{
+			... e, category: getCategory(e.categoryId)
+		}))
 }
 
 //create task
