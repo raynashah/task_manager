@@ -5,11 +5,25 @@
 	<script type="text/javascript" src="/js/api-tasks.js"></script>
 </head>
 <body>
+	<header>
+		<span>
+			GYST
+		</span>
+		<nav>
+			<a href="/tasks">Tasks</a>
+			<a href="/categories">Categories</a>
+		</nav>
+	</header>
 	<main>
 		<h1>Tasks</h1>
 		<div>
 			<a href="/tasks/new">New Task</a>
 		</div>
+		<h2>Reminders</h2>
+		<div id='reminder-container'>
+			<ul></ul>
+		</div>
+		<h2>All Tasks</h2>
 		<div id='tasks-container'>
 			<ul></ul>
 		</div>
@@ -17,22 +31,69 @@
 </body>
 <script type="text/javascript">
 	async function render(){
-		const tasksData = await getTasks();
+		const tasksData = await getSortedTasks();
 		createTaskElements(tasksData);
+		const remindersData = getSortedReminders(tasksData);
+		createReminderElements(remindersData);
 	}
 	
 	function createTaskElements(tasksData){
 		const tasksList = document.querySelector("#tasks-container ul");
 		for(let i = 0; i < tasksData.length; i++){
 			const taskData = tasksData[i];
-			const li = document.createElement("li");
-			const link = document.createElement("a");
-			link.href = "/tasks/" + taskData.id;
-			const linkText = document.createTextNode(taskData.title);
-			link.appendChild(linkText);
-			li.appendChild(link);
+			const li = createTaskElement(taskData);
 			tasksList.appendChild(li);
 		}
+	}
+
+	async function getSortedTasks(){
+		const tasks = await getTasks();
+		return tasks.sort((a, b) => new Date(b.date) - new Date(a.date)).filter(e => !e.isComplete);
+	}
+
+	function createReminderElements(remindersData){
+		const reminderList = document.querySelector("#reminder-container ul")
+		for(let i = 0; i < remindersData.length; i++){
+			const reminderData = remindersData[i];
+			const li = createTaskElement(reminderData);
+			reminderList.appendChild(li);
+		}
+	}
+
+	function createTaskElement(taskData){
+		const li = document.createElement("li");
+		const link = document.createElement("a");
+		link.href = "/tasks/" + taskData.id;
+		const linkText = document.createTextNode(taskData.title);
+		const date = document.createTextNode(" " + formatDate(taskData.dueAt));
+
+		const checkbox = document.createElement("input");
+		checkbox.type = "checkbox";
+		checkbox.checked = taskData.isComplete;
+		checkbox.addEventListener("change", async event =>{
+			const updatedTaskData = {
+				...taskData,
+				isComplete: event.target.checked,
+			}
+			fetch("/api/tasks/" + taskData.id, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(updatedTaskData),
+			})
+		})
+
+		link.appendChild(linkText);
+		li.appendChild(link);
+		li.appendChild(date);
+		li.appendChild(checkbox);
+		return li;
+	}
+
+	function getSortedReminders(tasksData){
+		const reminders = tasksData.filter(e => new Date(e.reminderAt) <= new Date())
+		return reminders;
 	}
 
 	render();

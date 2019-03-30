@@ -6,6 +6,15 @@
 	<script type="text/javascript" src="/js/api-categories.js"></script>
 </head>
 <body>
+	<header>
+		<span>
+			GYST
+		</span>
+		<nav>
+			<a href="/tasks">Tasks</a>
+			<a href="/categories">Categories</a>
+		</nav>
+	</header>
 	<main>
 		<h1>Edit Task</h1>
 		<!-- title, category, priority, due date, reminder date, is complete, notes -->
@@ -24,11 +33,11 @@
 					<label for="none">none</label>
 					<input type="radio" name="priority" id="none" value="none">
 					<label for="one">!</label>
-					<input type="radio" name="priority" id="one" value="one">
+					<input type="radio" name="priority" id="one" value="!">
 					<label for="two">!!</label>
-					<input type="radio" name="priority" id="two" value="two">
+					<input type="radio" name="priority" id="two" value="!!">
 					<label for="three">!!!</label>
-					<input type="radio" name="priority" id="three" value="three">
+					<input type="radio" name="priority" id="three" value="!!!">
 				</div>
 				<div class='input-container'>
 					<label for='categoryId'>Category</label>

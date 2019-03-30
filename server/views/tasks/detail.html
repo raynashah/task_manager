@@ -5,6 +5,15 @@
 	<script type="text/javascript" src="/js/api-tasks.js"></script>
 </head>
 <body>
+	<header>
+		<span>
+			GYST
+		</span>
+		<nav>
+			<a href="/tasks">Tasks</a>
+			<a href="/categories">Categories</a>
+		</nav>
+	</header>
 	<main>
 		<h1 id="task-title"></h1> 
 		<!-- title, priority, category, due date, reminder, notes -->
@@ -53,17 +62,6 @@
 			const element = document.querySelector(elementId);
 			const text = document.createTextNode(value);
 			element.appendChild(text);
-		}
-
-		function formatDate(date){
-			return new Date(date).toLocaleDateString("en-US", {
-				weekday: "long",
-				month: "long",
-				day: "numeric",
-				year: "numeric",
-				hour: "numeric",
-				minute: "2-digit",
-			})
 		}
 
 		async function render(){

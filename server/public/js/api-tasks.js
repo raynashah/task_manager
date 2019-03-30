@@ -16,3 +16,14 @@ function getTaskIdFromUrl(){
 	const taskId = window.location.pathname.split("/")[2];
 	return taskId;
 }
+
+function formatDate(date){
+	return new Date(date).toLocaleDateString("en-US", {
+		weekday: "long",
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+		hour: "numeric",
+		minute: "2-digit",
+	})
+}

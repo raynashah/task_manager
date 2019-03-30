@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 app.use(express.static("public"));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req,res, next) => {
 	console.log(req.method, req.url)
@@ -164,15 +165,15 @@ app.delete("/api/tasks/:id", (req, res) => {
 //tasks database
 let taskId = 1;
 let tasks = [
-	{title: "nice", priority: "one", categoryId: 1, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: true},
-	{title: "wow", priority: "two", categoryId: 2, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false},
-	{title: "yay", priority: "three", categoryId: 3, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false}
+	{title: "nice", priority: "!", categoryId: 1, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: true},
+	{title: "wow", priority: "!!", categoryId: 2, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false},
+	{title: "yay", priority: "!!!", categoryId: 3, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false}
 ]
 
 //get a task
 function getTask(taskId){
 	const task = tasks.find(e => e.id === taskId);
-	task.category = getCategory(task.categoryId);
+	task.category = getCategory(Number(task.categoryId));
 	return task;
 }
 
