@@ -2,24 +2,26 @@
 <html>
 <head>
 	<title>GYST! | Categories</title>
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
 	<script type="text/javascript" src="/js/api-categories.js"></script>
 </head>
 <body>
 	<header>
 		<span>
-			GYST
+			<a href="/">GYST</a>
 		</span>
 		<nav>
 			<a href="/tasks">Tasks</a>
 			<a href="/categories">Categories</a>
 		</nav>
 	</header>
-	<main>
+	<main class="subpage">
 		<h1>Categories</h1>
-		<div>
+		<div class="new">
 			<a href="/categories/new">New Category</a>
 		</div>
-		<div id='categories-container'>
+		<div id='categories-container' class="index-items-container">
 			<ul></ul>
 		</div>
 	</main>
@@ -32,6 +34,9 @@
 		for(let i = 0; i < categories.length; i++){
 			const category = categories[i];
 			const li = document.createElement("li");
+			li.classList.add("index-item");
+			li.classList.add("category-item");
+			li.style.borderBottomColor = category.color;
 			const link = document.createElement("a");
 			link.href = "/categories/" + category.id;
 			const textNode = document.createTextNode(category.title);

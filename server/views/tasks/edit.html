@@ -2,20 +2,22 @@
 <html>
 <head>
 	<title>GYST! | Edit Task</title>
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
 	<script type="text/javascript" src="/js/api-tasks.js"></script>
 	<script type="text/javascript" src="/js/api-categories.js"></script>
 </head>
 <body>
 	<header>
 		<span>
-			GYST
+			<a href="/">GYST</a>
 		</span>
 		<nav>
 			<a href="/tasks">Tasks</a>
 			<a href="/categories">Categories</a>
 		</nav>
 	</header>
-	<main>
+	<main class="subpage">
 		<h1>Edit Task</h1>
 		<!-- title, category, priority, due date, reminder date, is complete, notes -->
 		<form action="/api/tasks" method="post">
@@ -55,7 +57,7 @@
 					<textarea rows="4" cols="50" name='notes' placeholder='Notes to self...'></textarea>
 				</div>
 			</div>
-			<button class='submit'>Edit Task</button> 
+			<button class='submit'>Update Task</button> 
 		</form>
 	</main>
 </body>

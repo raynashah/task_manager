@@ -2,30 +2,34 @@
 <html>
 <head>
 	<title>GYST! | Edit Category</title>
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
 	<script type="text/javascript" src="/js/api-categories.js"></script>
 </head>
 <body>
 	<header>
 		<span>
-			GYST
+			<a href="/">GYST</a>
 		</span>
 		<nav>
 			<a href="/tasks">Tasks</a>
 			<a href="/categories">Categories</a>
 		</nav>
 	</header>
-	<h1>Edit Category</h1>
-	<form method="post">
-		<div class='input-container'>
-			<label for='title'>Title</label>
-			<input type="text" name="title" id='title'>
-		</div>
-		<div class='input-container'>
-			<label for='color'>Color</label>
-			<input type="color" name="color" id='color' value='#68c19f'>
-		</div>
-		<button class='submit'>Update Category</button> 
-	</form>
+	<main class="subpage">
+		<h1>Edit Category</h1>
+		<form method="post">
+			<div class='input-container'>
+				<label for='title'>Title</label>
+				<input type="text" name="title" id='title'>
+			</div>
+			<div class='input-container'>
+				<label for='color'>Color</label>
+				<input type="color" name="color" id='color' value='#68c19f'>
+			</div>
+			<button class='submit'>Update Category</button> 
+		</form>
+	</main>
 </body>
 	<script type="text/javascript">
 		//populate edit form

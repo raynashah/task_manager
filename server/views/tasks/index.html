@@ -2,30 +2,38 @@
 <html>
 <head>
 	<title>GYST! | Tasks</title>
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
 	<script type="text/javascript" src="/js/api-tasks.js"></script>
 </head>
 <body>
 	<header>
 		<span>
-			GYST
+			<a href="/">GYST</a>
 		</span>
 		<nav>
 			<a href="/tasks">Tasks</a>
 			<a href="/categories">Categories</a>
 		</nav>
 	</header>
-	<main>
+	<main class="subpage">
 		<h1>Tasks</h1>
-		<div>
+		<div class="new">
 			<a href="/tasks/new">New Task</a>
 		</div>
-		<h2>Reminders</h2>
-		<div id='reminder-container'>
-			<ul></ul>
-		</div>
-		<h2>All Tasks</h2>
-		<div id='tasks-container'>
-			<ul></ul>
+		<div class="main-content-container">
+			<div>
+				<h2>Reminders</h2>
+				<div id='reminder-container' class="index-items-container">
+					<ul></ul>
+				</div>
+			</div>
+			<div>
+				<h2>All Tasks</h2>
+				<div id='tasks-container' class="index-items-container">
+					<ul></ul>
+				</div>
+			</div>
 		</div>
 	</main>
 </body>
@@ -62,11 +70,22 @@
 
 	function createTaskElement(taskData){
 		const li = document.createElement("li");
+		li.classList.add("index-item");
+		li.classList.add("task-item");
+		li.style.borderBottomColor = taskData.category.color;
+		const linkSpan = document.createElement("span");
+		linkSpan.classList.add("task-name")
 		const link = document.createElement("a");
 		link.href = "/tasks/" + taskData.id;
 		const linkText = document.createTextNode(taskData.title);
-		const date = document.createTextNode(" " + formatDate(taskData.dueAt));
+		const dateSpan = document.createElement("span");
+		dateSpan.classList.add("task-date")
+		const dateText = document.createTextNode(" " + formatDate(taskData.dueAt));
 
+		const checkboxLabel = document.createElement("label");
+		checkboxLabel.classList.add("checkbox");
+		const checkboxText = document.createElement("span");
+		checkboxText.innerText = "done";
 		const checkbox = document.createElement("input");
 		checkbox.type = "checkbox";
 		checkbox.checked = taskData.isComplete;
@@ -83,11 +102,15 @@
 				body: JSON.stringify(updatedTaskData),
 			})
 		})
+		checkboxLabel.appendChild(checkbox);
+		checkboxLabel.appendChild(checkboxText);
 
+		li.appendChild(checkboxLabel);
 		link.appendChild(linkText);
-		li.appendChild(link);
-		li.appendChild(date);
-		li.appendChild(checkbox);
+		linkSpan.appendChild(link);
+		dateSpan.appendChild(dateText);
+		li.appendChild(linkSpan);
+		li.appendChild(dateSpan);
 		return li;
 	}
 
