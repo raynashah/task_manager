@@ -65,9 +65,9 @@ app.delete("/api/categories/:id", (req, res) => {
 //categories database
 let categoryId = 1;
 let categories = [
-	{title: "Home", color: "red", id: categoryId++}, 
-	{title: "Work", color: "green", id: categoryId++}, 
-	{title: "Exercise", color: "blue", id: categoryId++}
+	{title: "Home", color: "#F8BB97", id: categoryId++}, 
+	{title: "Work", color: "#FF643F", id: categoryId++}, 
+	{title: "Exercise", color: "#4A000C", id: categoryId++}
 ]; 
 
 //get categories
@@ -165,9 +165,9 @@ app.delete("/api/tasks/:id", (req, res) => {
 //tasks database
 let taskId = 1;
 let tasks = [
-	{title: "nice", priority: "!", categoryId: 1, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: true},
-	{title: "wow", priority: "!!", categoryId: 2, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false},
-	{title: "yay", priority: "!!!", categoryId: 3, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false}
+	{title: "Laundry", priority: "!", categoryId: 1, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false},
+	{title: "GIG", priority: "!!", categoryId: 2, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false},
+	{title: "Run", priority: "!!!", categoryId: 3, dueAt: new Date(), reminderAt: new Date(), notes: "", id: taskId++, isComplete: false}
 ]
 
 //get a task
@@ -181,7 +181,7 @@ function getTask(taskId){
 function getTasks(){
 	return tasks.map(e => (
 		{
-			... e, category: getCategory(e.categoryId)
+			... e, category: getCategory(Number(e.categoryId))
 		}))
 }
 

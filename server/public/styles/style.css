@@ -36,7 +36,7 @@ button {
 
 button:hover, button:focus {
 	cursor: pointer;
-	background-color: var(--peach);
+	background-color: var(--salmon);
 	outline: none;
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 header {
-	background-color: var(--coral);
+	background-color: var(--salmon);
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
@@ -54,6 +54,23 @@ header {
 	font-size: 1.5rem;
 	margin-bottom: 0.5rem;
 	box-shadow: var(--default-shadow);
+}
+
+header nav {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-around;
+	width: 15rem; 
+}
+
+header a:hover{
+	cursor: pointer;
+	text-decoration: underline;
+	text-decoration-color: var(--dark-teal);
+}
+
+header a {
+	text-decoration: none;
 }
 
 main {
@@ -69,6 +86,7 @@ main.subpage h1 {
 	font-size: 5rem;
 	text-align: center;
 	text-shadow: var(--default-shadow);
+	margin-bottom: 1rem;
 }
 
 main.subpage h2 {
@@ -76,6 +94,99 @@ main.subpage h2 {
 	text-shadow: var(--default-shadow);
 	text-align: center;
 	padding-top: 1rem;
+}
+
+.buttons-container {
+	margin: 0 auto;
+	width: 10rem;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+
+.attribute-container {
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	padding: 0.5rem;
+}
+
+.attribute-container label {
+	font-size: 1rem;
+	letter-spacing: 1rem;
+	font-weight: 600;
+	color: var(--peach);
+	text-transform: uppercase;
+}
+
+.attribute-container .value {
+	font-size: 1.65rem;
+	color: var(--light-teal);
+}
+
+.input-container {
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	padding: 0.5rem;
+}
+
+.input-container label {
+	font-size: 1rem;
+	letter-spacing: 1rem;
+	font-weight: 800;
+	color: var(--peach);
+	text-transform: uppercase;
+	padding-bottom: .5rem;
+} 
+
+.input-container input, .input-container select, .input-container textarea {
+	height: 2.5rem;
+	width: 100%;
+	border: .1rem solid var(--peach);
+	color: var(--light-teal);
+	cursor: pointer;
+	font-size: 1rem;
+	outline: white;
+	font-family: var(--default-font-family);
+	background-color: white;
+	padding: .5rem;
+}
+
+.input-container textarea {
+	height: 5rem;
+	width: 100%;
+	resize: vertical;
+	line-height: 2rem
+}
+
+.radio-container {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+
+.radio-container input[type="radio"] {
+	display: none;
+}
+
+.radio-container input[type="radio"] + label {
+	cursor: pointer;
+	color: var(--light-teal);
+	font-weight: 600;
+	letter-spacing: .5rem;
+	padding: .25rem .5rem;
+	width: 100%;
+	border: .1rem solid var(--peach);
+	display: inline-block;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.radio-container input[type="radio"]:checked + label {
+	color: var(--white);
+	background-color: var(--peach);
+
 }
 
 .new {
@@ -119,7 +230,8 @@ main.subpage h2 {
 	border-bottom: 1rem solid #fff;
 	transition: .2s ease-out;
 	box-shadow: var(--default-shadow);
-	margin-bottom: 1rem;	
+	margin-bottom: 1rem;
+	position: relative;	
 }
 
 li.index-item:hover {
@@ -147,6 +259,9 @@ li.category-item a {
 
 li.task-item {
 	width: 80%;
+	padding-left: 3rem;
+	padding-right: 3rem;
+	padding-top: 1rem;
 }
 
 .task-name {
@@ -160,22 +275,88 @@ li.task-item {
 	text-align: center;
 	width: 100%;
 	display: inline-block;
+	margin-bottom: 1rem;
+}
+
+.task-item .checkbox {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+}
+
+.checkbox {
+	height: 2rem;
+	width: 2rem;
+	line-height: 2rem;
+}
+
+.checkbox-icon i {
+	font-size: 2rem !important;
+	color: red; 
 }
 
 .checkbox input[type="checkbox"] {
 	display: none;
 }
 
-input[type="checkbox"] + span {
+.checkbox-icon i {
 	display: inline-block;
-	border: 2px solid #222;
+	color: #777;
+	transition: transform .1s ease-out;
 }
 
-input[type="checkbox"]:checked + span {
+input[type="checkbox"]:active + .checkbox-icon i {
+	transform: scale(.9, .9); 
+}
+
+@keyframes check-animation {
+	0% {
+		transform: scale(1, 1);
+	}
+	50% {
+		transform: scale(1.2, 1.2);
+	}
+	100% {
+		transform: scale(1, 1);
+	}
+}
+
+input[type="checkbox"]:checked + .checkbox-icon i {
 	color: green;
-	background-color: green;
+	animation: check-animation .5s ease;
 }
 
+input[type="checkbox"]:checked + .checkbox-icon i.unchecked {
+	display: none;
+}
 
+input[type="checkbox"]:not(:checked) + .checkbox-icon i.checked {
+	display: none;
+}
 
+main.item-page section {
+	background-color: white;
+	width: 40vw;
+	margin: 0 auto;
+	padding: 3rem;
+	margin-bottom: 2rem;
+	border-radius: 1rem;
+	box-shadow: var(--default-shadow);
+}
 
+main.category-detail section {
+	background-color: #fff;
+	width: 40vw;
+	margin: 0 auto;
+	padding: 3rem;
+	margin-bottom: 2rem;
+	border-radius: 1rem;
+	box-shadow: var(--default-shadow);
+}
+
+#category-color-display {
+	width: 15rem;
+	height: 15rem;
+	margin: 0 auto;
+	border-radius: 50%;
+}

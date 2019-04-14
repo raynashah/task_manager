@@ -16,35 +16,39 @@
 			<a href="/categories">Categories</a>
 		</nav>
 	</header>
-	<main class="subpage">
+	<main class="subpage item-page task-detail">
 		<h1 id="task-title"></h1> 
 		<!-- title, priority, category, due date, reminder, notes -->
-			<div>
-				Completed:
-				<span id="complete"></span>
+			<section>
+				<div class="attribute-container">
+					<label>Completed</label>
+					<span id="complete" class="value"></span>
+				</div>
+				<div class="attribute-container">
+					<label>Priority</label>
+					<span id="priority" class="value"></span>
+				</div>
+				<div class="attribute-container">
+					<label>Category</label>
+					<span id="category" class="value"></span>
+				</div>
+				<div class="attribute-container">
+					<label>Due Date</label>
+					<span id="due-at" class="value"></span>
+				</div>
+				<div class="attribute-container">
+					<label>Reminder</label>
+					<span id="reminder-at" class="value"></span>
+				</div>
+				<div class="attribute-container">
+					<label>Notes</label>
+					<span id="notes" class="value"></span>
+				</div>
+			</section>
+			<div class="buttons-container">
+				<button class="edit-button">Edit</button>
+				<button class="delete-button">Delete</button>
 			</div>
-			<div>
-				Priority Level
-				<span id="priority"></span>
-			</div>
-			<div>
-				Category
-				<span id="category"></span>
-			</div>
-			<div>
-				Due Date
-				<span id="due-at"></span>
-			</div>
-			<div>
-				Reminder
-				<span id="reminder-at"></span>
-			</div>
-			<div>
-				Notes
-				<span id="notes"></span>
-			</div>
-			<button class="edit-button">Edit</button>
-			<button class="delete-button">Delete</button>
 	</main>
 </body>
 	<script type="text/javascript">

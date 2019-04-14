@@ -5,12 +5,6 @@
 	<link rel="stylesheet" type="text/css" href="/styles/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
 	<script type="text/javascript" src="/js/api-categories.js"></script>
-	<style type="text/css">
-		#category-color-display {
-			height: 2rem;
-			width: 2rem;
-		}
-	</style>
 </head>
 <body>
 	<header>
@@ -22,22 +16,24 @@
 			<a href="/categories">Categories</a>
 		</nav>
 	</header>
-	<main class="subpage">
+	<main class="subpage category-detail">
 		<!-- title of the particular category, color of category, any tasks that are currently in the category, edit button, delete button -->
 		<h1 id="category-title"></h1>
-		<div class="color">
-			<div id="category-color-display"></div>
-			<span id="category-color"></span>
+		<section>
+			<div class="color">
+				<div id="category-color-display"></div>
+			</div>
+		</section>
+		<div class="buttons-container">
+			<button class="edit-button">Edit</button>
+			<button class="delete-button">Delete</button>
 		</div>
-		<button class="edit-button">Edit</button>
-		<button class="delete-button">Delete</button>
 	</main>
 </body>
 	<script type="text/javascript">
 		//access api, get a particular category, list it, convert to html
 		function populateDetail(category){
 			createText("#category-title", category.title);
-			createText("#category-color", category.color);
 			const categoryColor = document.querySelector("#category-color-display")
 			categoryColor.style.backgroundColor = category.color;
 		}
